@@ -1,0 +1,30 @@
+Mobile Spectrum Lab V2.2.0 수정 내용
+
+1. 기준 측정과 미지 시료 측정을 분리
+- 기준: Blank, PP, PET, PS, PA, PC 각 3회 = 총 18회
+- 미지 시료: UNKNOWN만 3회 측정
+
+2. 기준 데이터 4시간 재사용
+- 생성 시각, 경과 시간, 남은 권장시간 표시
+- 4시간 초과 시 경고 후 기존 기준 사용 가능
+
+3. 광원 재가동 안내
+- '광원을 껐다 다시 켰어요' 버튼으로 상태 기록
+- 이후 UNKNOWN 시작 시 기준 재측정 권고
+
+4. UNKNOWN 자동 번호
+- UNKNOWN-001, UNKNOWN-002 ... 자동 증가
+
+5. 기준 기록 보관
+- 새 기준을 만들어도 이전 기준을 최대 30개까지 localStorage에 보관
+
+6. 재질 분류
+- Blank 보정: Relative attenuation = 1 - Isample/I0
+- 각 기준 스펙트럼과의 Euclidean distance를 계산
+- 가장 작은 distance를 최종 판정으로 표시
+
+7. 종합 유사도 순위 UI 개선
+- 숫자만 나열하지 않고 1~5위 재질을 가로 막대로 표시
+- 1위 재질을 강조
+- 정확한 Euclidean distance는 우측에 작은 글씨로 유지
+- 막대 길이는 순위 시각화를 위한 상대 표시이며 판정 자체는 distance 최솟값으로 수행

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mobile Spectrum Lab">
+
+  <title>Mobile Spectrum Lab V3</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <link
+    rel="stylesheet"
+    href="css/style.css?v=3.0.0"
+  >
+
+  <style id="mounted180SpectrumDisplayFix">
+    html.spectrometer-180 #cameraPreview,
+    html.spectrometer-180 #spectrumImage {
+      transform: rotate(180deg) !important;
+      transform-origin: 50% 50% !important;
+    }
+
+    html.spectrometer-180 body #roiCanvas,
+    html.spectrometer-180 body #roiZoomCanvas {
+      transform: rotate(180deg) !important;
+      transform-origin: 50% 50% !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="header-title">
+      <p class="header-eyebrow">
+        SMARTPHONE VISIBLE SPECTROSCOPY
+      </p>
+
+      <h1>Mobile Spectrum Lab V3</h1>
+
+      <p class="header-description">
+        세션 기반 스마트폰 가시광 분광 측정 플랫폼
+      </p>
+    </div>
+
+    <span class="version">
+      v3.0.0
+    </span>
+  </header>
+
+  <main class="app-container">
+
+    <div id="setupScreen">
+
+      <section class="intro-panel">
+        <div>
+          <p class="section-kicker">MEASUREMENT WORKFLOW</p>
+          <h2>새 측정 세션 만들기</h2>
+          <p>프로젝트와 측정 방식을 선택한 뒤 세션을 시작합니다. 세션이 시작되면 광원과 측정 방식은 변경할 수 없습니다.</p>
+        </div>
+        <div class="workflow-summary">
+          <span>Blank</span><span>PP</span><span>PET</span><span>PS</span><span>PA</span><span>PC</span><span>기준 18회</span><span>→ UNKNOWN 3회씩</span>
+        </div>
+      </section>
+
+      <section class="card reference-card">
+        <div class="card-heading">
+          <div class="step-number">⏱</div>
+          <div><h2>기준 데이터 상태</h2><p>Blank + 5종 기준시료는 한 번 측정하고 4시간 동안 재사용할 수 있습니다.</p></div>
+        </div>
+        <div id="referenceStatus" class="reference-status"><strong>기준 데이터 확인 중</strong></div>
+        <button id="startUnknownBtn" class="primary-button" type="button">시료 바로 분석하기 · UNKNOWN 3회</button>
+        <button id="lightRestartBtn" class="secondary-button" type="button">💡 광원을 껐다 다시 켰어요</button>
+      </section>
+
+      <section class="card">
+        <div class="card-heading"><div class="step-number">1</div><div><h2>프로젝트 설정</h2><p>측정 데이터가 저장될 프로젝트 정보를 설정합니다.</p></div></div>
+        <div class="form-grid">
+          <div class="field field-wide"><label for="projectName">프로젝트 이름</label><input id="projectName" type="text" value="2026 과학전람회" maxlength="60" autocomplete="off"></div>
+          <div class="field"><label for="lightSource">광원</label><select id="lightSource"><option value="6500K LED">6500K 백색 LED</option><option value="other LED">기타 LED</option><option value="incandescent">백열전구</option><option value="unknown">미지정</option></select></div>
+          <div class="field"><label for="measurementPurpose">측정 목적</label><select id="measurementPurpose"><option value="plastic classification">플라스틱 재질 분류</option><option value="instrument validation">분광기 성능 검증</option><option value="environmental sample">환경 시료 적용 검토</option></select><p class="field-note">이 항목은 화면 안내용이며 측정 데이터에는 저장되지 않습니다.</p></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-heading"><div class="step-number">2</div><div><h2>측정 방식 선택</h2><p>한 세션에서는 처음 선택한 방식만 사용합니다.</p></div></div>
+        <div class="mode-grid">
+          <button id="photoModeBtn" class="mode-card selected" type="button" data-mode="photo" aria-pressed="true"><span class="mode-icon">📷</span><span class="mode-text"><strong>사진 모드</strong><small>각 시료를 고정한 상태에서 사진 3장을 측정합니다.</small></span><span class="mode-check">선택됨</span></button>
+          <button id="videoModeBtn" class="mode-card" type="button" data-mode="video" aria-pressed="false"><span class="mode-icon">🎥</span><span class="mode-text"><strong>3초 영상 모드</strong><small>3초 동안 카메라 프레임을 수집하여 평균 스펙트럼을 계산합니다.</small></span><span class="mode-check">선택</span></button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-heading"><div class="step-number">3</div><div><h2>세션 정보</h2><p>측정 세션을 식별할 이름을 입력합니다.</p></div></div>
+        <div class="field"><label for="sessionName">세션 이름</label><input id="sessionName" type="text" value="실험 1" maxlength="50" autocomplete="off"></div>
+        <div class="session-preview"><div><span>선택한 방식</span><strong id="selectedModeText">사진 모드</strong></div><div><span>측정 단계</span><strong>기준 6단계 / 시료 1단계</strong></div><div><span>단계별 반복</span><strong>3회</strong></div></div>
+        <button id="startSessionBtn" class="primary-button" type="button">기준 세션 새로 만들기 · 18회</button>
+        <p id="statusMessage" class="status-message" aria-live="polite">프로젝트와 세션 정보를 확인한 뒤 시작하세요.</p>
+      </section>
+    </div>
+
+    <section id="measurementScreen" class="measurement-screen hidden">
+      <section class="measurement-header card"><div><p class="section-kicker">MEASUREMENT SESSION</p><h2 id="measurementTitle">Blank 측정</h2><p id="measurementInstruction">광 경로에 시료와 지지체를 두지 않은 상태로 측정하세요.</p></div><div class="measurement-status"><span id="measurementStep">1 / 7</span><strong id="measurementRepeat">1 / 3회</strong></div></section>
+      <section class="card">
+        <div class="progress-dots" aria-label="반복 측정 진행률"><span class="progress-dot active"></span><span class="progress-dot"></span><span class="progress-dot"></span></div>
+        <div id="imagePreviewArea" class="image-preview-area"><p id="previewPlaceholder">촬영하거나 사진을 선택하면 여기에 표시됩니다.</p><img id="spectrumImage" class="spectrum-image hidden" alt="불러온 스펙트럼 사진"><video id="cameraPreview" class="camera-preview hidden" playsinline muted></video></div>
+        <div id="photoControls" class="measurement-controls"><button id="cameraPhotoBtn" class="secondary-button" type="button">📷 카메라 촬영</button><button id="galleryPhotoBtn" class="secondary-button" type="button">🖼 사진 선택</button></div>
+        <div id="videoControls" class="measurement-controls hidden"><button id="startVideoBtn" class="secondary-button" type="button">🎥 카메라 미리보기</button><button id="recordThreeSecondsBtn" class="primary-button" type="button" disabled>3초 측정 시작</button></div>
+        <input id="cameraPhotoInput" class="hidden-input" type="file" accept="image/*" capture="environment"><input id="galleryPhotoInput" class="hidden-input" type="file" accept="image/*">
+        <p id="measurementMessage" class="status-message" aria-live="polite">측정 이미지를 준비해 주세요.</p>
+        <button id="continueToRoiBtn" class="primary-button" type="button" disabled>ROI 설정으로 이동</button><button id="cancelSessionBtn" class="text-button" type="button">세션 설정으로 돌아가기</button>
+      </section>
+    </section>
+
+    <section id="roiScreen" class="roi-screen hidden">
+      <section class="measurement-header card"><div><p class="section-kicker">ROI CONFIGURATION</p><h2>스펙트럼 ROI 설정</h2><p>세션의 첫 Blank에서만 ROI 크기와 위치를 정해 확정합니다. 이후 사진은 같은 크기의 ROI가 첫 Blank의 스펙트럼 모양에 맞춰 자동으로 놓입니다.</p></div><div class="measurement-status"><span>ROI 크기</span><strong id="roiSizeSummary">265 × 700 px</strong></div></section>
+      <section class="card">
+        <div class="roi-setting-grid"><div class="field"><label for="roiWidthInput">ROI 가로폭</label><input id="roiWidthInput" type="number" min="10" max="3000" step="1" value="265"></div><div class="field"><label for="roiHeightInput">ROI 세로폭</label><input id="roiHeightInput" type="number" min="10" max="3000" step="1" value="700"></div></div>
+        <button id="lockRoiSizeBtn" class="secondary-button roi-lock-button" type="button">ROI 크기 적용·고정</button>
+        <p class="roi-help">첫 Blank: 숫자 입력과 드래그로 스펙트럼 전체가 들어오도록 ROI를 맞춘 뒤 확정하세요. 확정한 Blank가 세션의 정렬 기준이 됩니다. 표시되는 값은 원본 이미지 픽셀을 기준으로 합니다.</p>
+        <label id="autoAlignToggleWrap" class="v3-align-toggle hidden"><input id="autoAlignToggle" type="checkbox" checked> 자동 정렬 사용 (끄면 첫 Blank에서 확정한 고정 좌표 사용)</label><div class="roi-canvas-container"><canvas id="roiCanvas" class="roi-canvas" tabindex="0" aria-label="ROI 위치 및 크기 조정 영역"></canvas></div>
+        <div class="roi-nudge-panel" aria-label="ROI 미세 위치 조정"><span>미세 위치 조정</span><div class="roi-nudge-grid"><button type="button" data-roi-nudge="up" data-roi-step="5" aria-label="ROI 위로 5픽셀">▲</button><button type="button" data-roi-nudge="left" data-roi-step="5" aria-label="ROI 왼쪽으로 5픽셀">◀</button><button type="button" data-roi-nudge="down" data-roi-step="5" aria-label="ROI 아래로 5픽셀">▼</button><button type="button" data-roi-nudge="right" data-roi-step="5" aria-label="ROI 오른쪽으로 5픽셀">▶</button></div><small>드래그가 어려울 때 5 px씩 정확하게 이동할 수 있습니다.</small></div>
+        <div class="roi-information"><div><span>X 좌표</span><strong id="roiXValue">0</strong></div><div><span>Y 좌표</span><strong id="roiYValue">0</strong></div><div><span>가로폭</span><strong id="roiWidthValue">265</strong></div><div><span>세로폭</span><strong id="roiHeightValue">700</strong></div></div>
+        <p id="roiMessage" class="status-message" aria-live="polite">ROI 크기를 확인한 뒤 적용·고정 버튼을 누르세요.</p>
+        <button id="confirmRoiBtn" class="primary-button" type="button" disabled>ROI 스펙트럼 분석</button><button id="returnToMeasurementBtn" class="text-button" type="button">사진 다시 선택하기</button>
+      </section>
+    </section>
+
+    <section id="analysisScreen" class="analysis-screen hidden">
+      <section class="measurement-header card"><div><p class="section-kicker">SPECTRUM ANALYSIS</p><h2>스펙트럼 분석 결과</h2><p>ROI의 각 가로 위치에서 세로 방향 RGB 픽셀값을 평균하여 1차원 스펙트럼을 생성했습니다.</p></div><div class="measurement-status"><span>데이터 길이</span><strong id="analysisDataLength">265</strong></div></section>
+      <section class="card"><h3>원시 RGB 스펙트럼</h3><p class="analysis-description">촬영 이미지에서 직접 추출한 Red, Green, Blue 픽셀값입니다.</p><div class="chart-container"><canvas id="rgbSpectrumCanvas" class="spectrum-chart"></canvas></div></section>
+      <section class="card"><h3>Gray 스펙트럼</h3><p class="analysis-description">RGB 원자료로부터 계산한 두 가지 Gray 값을 비교합니다.</p><div class="chart-container"><canvas id="graySpectrumCanvas" class="spectrum-chart"></canvas></div><div class="formula-information"><div><span>Gray BT.601</span><strong>0.299R + 0.587G + 0.114B</strong></div><div><span>Gray Mean</span><strong>(R + G + B) / 3</strong></div></div></section>
+      <section id="classificationCard" class="card classification-card hidden"><div class="classification-head"><div><span id="predictionSample" class="sample-label">UNKNOWN-001</span><h3>재질 판정</h3></div><strong id="predictionMaterial" class="prediction-material">-</strong></div><h4>재질별 종합 유사도 순위</h4><div id="similarityRanking" class="similarity-ranking"></div><p id="classificationNote" class="analysis-description"></p></section>
+      <section class="card"><h3>분석 정보</h3><div class="analysis-information"><div><span>ROI X</span><strong id="analysisRoiX">0</strong></div><div><span>ROI Y</span><strong id="analysisRoiY">0</strong></div><div><span>ROI 가로폭</span><strong id="analysisRoiWidth">265</strong></div><div><span>ROI 세로폭</span><strong id="analysisRoiHeight">700</strong></div><div><span>피크 위치</span><strong id="analysisPeakPixel">-</strong></div><div><span>피크 세기</span><strong id="analysisPeakIntensity">-</strong></div><div><span>최저 위치</span><strong id="analysisMinimumPixel">-</strong></div><div><span>신호 범위</span><strong id="analysisIntensityRange">-</strong></div><div><span>자동 정렬 이동</span><strong id="analysisAlignOffset">-</strong></div><div><span>정렬 일치도</span><strong id="analysisAlignNcc">-</strong></div></div><p id="analysisMessage" class="status-message success" aria-live="polite">RGB 원자료와 Gray 파생 데이터가 생성되었습니다.</p><button id="downloadRawCsvBtn" class="secondary-button analysis-wide-button" type="button">Raw CSV 다운로드</button><button id="newMeasurementBtn" class="primary-button analysis-wide-button" type="button">다음 사진 촬영</button><button id="returnToRoiBtn" class="text-button" type="button">ROI 위치 다시 조정하기</button></section>
+    </section>
+  </main>
+
+  <footer class="app-footer"><p>Mobile Spectrum Lab V3 · Research Prototype</p></footer>
+
+  <script type="module" src="js/app.js?v=3.0.0"></script>
+</body>
+</html>

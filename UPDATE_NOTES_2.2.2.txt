@@ -1,0 +1,10 @@
+Mobile Spectrum Lab v2.2.2
+
+ROI direct-move reliability update
+- ROI canvas no longer resets width/height on every pointer move.
+- Pointer movement is tracked at window level so dragging continues outside the canvas.
+- Thin ROI gets a minimum comfortable drag hit area (~44 CSS px).
+- A visible center “↔ 이동” grip is drawn inside the ROI.
+- Added 5 px directional nudge buttons for precise fallback movement.
+- Arrow keys move ROI by 1 px; Shift+Arrow moves by 10 px.
+- Existing v2.2.x baseline-session and classification functions are unchanged.

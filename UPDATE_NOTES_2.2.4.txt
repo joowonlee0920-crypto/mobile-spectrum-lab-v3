@@ -1,0 +1,10 @@
+Mobile Spectrum Lab v2.2.4 - ROI session lock
+
+- 새 기준 세션의 첫 ROI 설정에서만 ROI 크기 조정 가능
+- ROI 크기 확정 후 기준 세션 전체에서 크기 변경 불가
+- Blank/PP/PET/PS/PA/PC 모든 기준 측정에 동일 ROI 크기 강제 적용
+- 기준 세션 완료 후 ROI width/height를 기준 데이터와 함께 저장
+- 4시간 동안 UNKNOWN 측정에도 동일 ROI 크기 강제 적용
+- 4시간 초과 후 기존 기준 계속 사용을 선택해도 동일 ROI 크기 유지
+- ROI 위치 이동은 스마트폰 터치/마우스/미세 이동 버튼으로 항상 가능
+- 새 기준 세션을 시작할 때만 저장된 이전 ROI 크기를 기본값으로 다시 조정 가능
