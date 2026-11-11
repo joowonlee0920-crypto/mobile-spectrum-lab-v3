@@ -1,0 +1,1177 @@
+:root {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans KR",
+    sans-serif;
+
+  color: #0f172a;
+  background: #eef3f9;
+
+  --navy: #0f172a;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-light: #dbeafe;
+
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+
+  --border: #d8e1ed;
+  --muted: #64748b;
+  --danger: #b91c1c;
+
+  --shadow:
+    0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #eef3f9;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      180deg,
+      #e9f0f8 0,
+      #f4f7fb 520px,
+      #eef3f9 100%
+    );
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.hidden-input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================
+   상단 헤더
+========================= */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  min-height: 120px;
+
+  padding:
+    calc(22px + env(safe-area-inset-top))
+    max(24px, env(safe-area-inset-right))
+    22px
+    max(24px, env(safe-area-inset-left));
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(37, 99, 235, 0.32),
+      transparent 34%
+    ),
+    var(--navy);
+}
+
+.header-title {
+  min-width: 0;
+}
+
+.header-eyebrow {
+  margin: 0 0 6px;
+
+  color: #93c5fd;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.app-header h1 {
+  margin: 0;
+
+  font-size: clamp(22px, 4vw, 30px);
+  letter-spacing: -0.025em;
+}
+
+.header-description {
+  margin: 7px 0 0;
+
+  color: #cbd5e1;
+
+  font-size: 14px;
+}
+
+.version {
+  flex-shrink: 0;
+
+  padding: 8px 11px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+
+  color: #e2e8f0;
+  background: rgba(30, 41, 59, 0.86);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* =========================
+   공통 레이아웃
+========================= */
+
+.app-container {
+  width: min(100%, 920px);
+
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.intro-panel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 18px;
+  padding: 22px 24px;
+
+  border: 1px solid rgba(37, 99, 235, 0.14);
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(239, 246, 255, 0.96)
+    );
+
+  box-shadow: var(--shadow);
+}
+
+.section-kicker {
+  margin: 0 0 6px;
+
+  color: var(--blue);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.intro-panel h2 {
+  margin: 0;
+
+  font-size: 24px;
+  letter-spacing: -0.025em;
+}
+
+.intro-panel p:not(.section-kicker) {
+  max-width: 590px;
+
+  margin: 9px 0 0;
+
+  color: var(--muted);
+
+  line-height: 1.6;
+}
+
+.workflow-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+
+  max-width: 255px;
+}
+
+.workflow-summary span {
+  padding: 6px 9px;
+
+  border-radius: 999px;
+
+  color: #1e3a8a;
+  background: var(--blue-light);
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.card {
+  margin-top: 18px;
+  padding: 24px;
+
+  border: 1px solid rgba(216, 225, 237, 0.92);
+  border-radius: 20px;
+
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.step-number {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 34px;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 11px;
+
+  color: white;
+  background: var(--blue);
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.card-heading h2 {
+  margin: 1px 0 4px;
+
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.card-heading p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================
+   입력 폼
+========================= */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 50px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  outline: none;
+
+  color: #0f172a;
+  background: white;
+
+  font-size: 16px;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--blue);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.13);
+}
+
+.field input:disabled,
+.field select:disabled {
+  color: #475569;
+  background: #f1f5f9;
+
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.field-note {
+  margin: 7px 2px 0;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* =========================
+   측정 방식
+========================= */
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mode-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 13px;
+
+  position: relative;
+
+  min-height: 128px;
+  padding: 18px;
+
+  border: 2px solid var(--border);
+  border-radius: 16px;
+
+  color: #0f172a;
+  background: var(--surface-soft);
+
+  text-align: left;
+  cursor: pointer;
+}
+
+.mode-card:not(.disabled):hover {
+  border-color: #93c5fd;
+}
+
+.mode-card.selected {
+  border-color: var(--blue);
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #ffffff
+    );
+}
+
+.mode-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mode-card.locked {
+  cursor: not-allowed;
+}
+
+.mode-icon {
+  font-size: 28px;
+}
+
+.mode-text {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.mode-text strong {
+  font-size: 17px;
+}
+
+.mode-text small {
+  color: var(--muted);
+
+  line-height: 1.5;
+}
+
+.mode-check {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+
+  padding: 5px 8px;
+
+  border-radius: 999px;
+
+  color: #1e40af;
+  background: var(--blue-light);
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.mode-card.selected .mode-check {
+  color: #ffffff;
+  background: var(--blue);
+}
+
+/* =========================
+   세션 정보
+========================= */
+
+.session-preview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.session-preview div {
+  padding: 13px 14px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+
+  background: var(--surface-soft);
+}
+
+.session-preview span,
+.session-preview strong {
+  display: block;
+}
+
+.session-preview span {
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.session-preview strong {
+  margin-top: 5px;
+
+  font-size: 15px;
+}
+
+/* =========================
+   버튼과 상태 메시지
+========================= */
+
+.primary-button {
+  width: 100%;
+  min-height: 56px;
+
+  margin-top: 20px;
+
+  border: 0;
+  border-radius: 14px;
+
+  color: white;
+  background: var(--blue);
+
+  font-size: 17px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background: var(--blue-dark);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.995);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  min-height: 52px;
+
+  padding: 12px;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 13px;
+
+  color: #1d4ed8;
+  background: #eff6ff;
+
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.text-button {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 10px;
+
+  border: 0;
+
+  color: var(--muted);
+  background: transparent;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.status-message {
+  margin: 14px 0 0;
+  padding: 13px 14px;
+
+  border-radius: 12px;
+
+  color: #334155;
+  background: #f1f5f9;
+
+  text-align: center;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.status-message.error {
+  color: var(--danger);
+  background: #fef2f2;
+}
+
+.status-message.success {
+  color: #166534;
+  background: #f0fdf4;
+}
+
+/* =========================
+   측정 화면
+========================= */
+
+.measurement-screen {
+  width: 100%;
+}
+
+.measurement-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.measurement-header h2 {
+  margin: 0;
+
+  font-size: 24px;
+}
+
+.measurement-header p:not(.section-kicker) {
+  margin: 8px 0 0;
+
+  color: var(--muted);
+
+  line-height: 1.55;
+}
+
+.measurement-status {
+  flex-shrink: 0;
+
+  min-width: 92px;
+
+  padding: 11px 13px;
+
+  border-radius: 14px;
+
+  background: #eff6ff;
+
+  text-align: center;
+}
+
+.measurement-status span,
+.measurement-status strong {
+  display: block;
+}
+
+.measurement-status span {
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.measurement-status strong {
+  margin-top: 5px;
+
+  color: #1d4ed8;
+
+  font-size: 15px;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.progress-dot {
+  width: 13px;
+  height: 13px;
+
+  border: 2px solid #93c5fd;
+  border-radius: 50%;
+
+  background: white;
+}
+
+.progress-dot.active {
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
+.progress-dot.completed {
+  border-color: #16a34a;
+  background: #16a34a;
+}
+
+.image-preview-area {
+  display: grid;
+  place-items: center;
+
+  position: relative;
+
+  width: 100%;
+  min-height: 360px;
+
+  overflow: hidden;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+
+  background: #0f172a;
+}
+
+.image-preview-area p {
+  max-width: 260px;
+
+  margin: 0;
+  padding: 20px;
+
+  color: #cbd5e1;
+
+  text-align: center;
+  line-height: 1.5;
+}
+
+.spectrum-image,
+.camera-preview {
+  display: block;
+
+  width: 100%;
+  max-height: 620px;
+
+  object-fit: contain;
+
+  background: #000000;
+}
+
+.camera-preview {
+  min-height: 360px;
+}
+
+.measurement-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+/* =========================
+   ROI 화면
+========================= */
+
+.roi-screen {
+  width: 100%;
+}
+
+.roi-setting-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.roi-lock-button {
+  width: 100%;
+
+  margin-top: 16px;
+}
+
+.roi-help {
+  margin: 10px 0 18px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.roi-canvas-container {
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  min-height: 320px;
+
+  overflow: auto;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+
+  background: #020617;
+
+  touch-action: none;
+}
+
+.roi-canvas {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+
+  cursor: grab;
+
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.roi-canvas.dragging {
+  cursor: grabbing;
+}
+
+.roi-canvas.resizing {
+  cursor: nwse-resize;
+}
+
+.roi-information {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+
+  margin-top: 16px;
+}
+
+.roi-information div {
+  padding: 12px 9px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+.roi-information span,
+.roi-information strong {
+  display: block;
+}
+
+.roi-information span {
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.roi-information strong {
+  margin-top: 4px;
+
+  color: #0f172a;
+
+  font-size: 14px;
+}
+
+/* =========================
+   하단
+========================= */
+
+.app-footer {
+  padding:
+    0
+    20px
+    calc(24px + env(safe-area-inset-bottom));
+
+  color: #94a3b8;
+
+  text-align: center;
+
+  font-size: 12px;
+}
+
+/* =========================
+   스마트폰
+========================= */
+
+@media (max-width: 680px) {
+  .app-header {
+    min-height: 104px;
+
+    align-items: flex-start;
+
+    padding-top:
+      calc(
+        18px +
+        env(safe-area-inset-top)
+      );
+  }
+
+  .header-description {
+    font-size: 12px;
+  }
+
+  .version {
+    padding: 6px 8px;
+
+    font-size: 10px;
+  }
+
+  .app-container {
+    padding: 14px 12px 36px;
+  }
+
+  .intro-panel {
+    display: block;
+
+    padding: 19px;
+  }
+
+  .intro-panel h2 {
+    font-size: 21px;
+  }
+
+  .workflow-summary {
+    justify-content: flex-start;
+
+    max-width: none;
+
+    margin-top: 16px;
+  }
+
+  .card {
+    padding: 19px;
+
+    border-radius: 17px;
+  }
+
+  .form-grid,
+  .mode-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-wide {
+    grid-column: auto;
+  }
+
+  .mode-card {
+    min-height: 120px;
+  }
+
+  .session-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .measurement-header {
+    display: block;
+  }
+
+  .measurement-status {
+    width: 100%;
+
+    margin-top: 16px;
+  }
+
+  .image-preview-area,
+  .camera-preview {
+    min-height: 280px;
+  }
+
+  .measurement-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .roi-setting-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .roi-canvas-container {
+    min-height: 250px;
+  }
+
+  .roi-information {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+}/* =========================
+   스펙트럼 분석 화면
+========================= */
+
+.analysis-screen {
+  width: 100%;
+}
+
+.analysis-screen h3 {
+  margin: 0 0 7px;
+
+  font-size: 18px;
+}
+
+.analysis-description {
+  margin: 0 0 16px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.chart-container {
+  width: 100%;
+
+  overflow-x: hidden;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+
+  background: #ffffff;
+}
+
+.spectrum-chart {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 250px;
+}
+
+.formula-information {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+
+  margin-top: 16px;
+}
+
+.formula-information div {
+  padding: 13px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+
+  background: #f8fafc;
+}
+
+.formula-information span,
+.formula-information strong {
+  display: block;
+}
+
+.formula-information span {
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.formula-information strong {
+  margin-top: 5px;
+
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.analysis-information {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.analysis-information div {
+  padding: 12px 9px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+.analysis-information span,
+.analysis-information strong {
+  display: block;
+}
+
+.analysis-information span {
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.analysis-information strong {
+  margin-top: 4px;
+
+  color: #0f172a;
+
+  font-size: 14px;
+}
+
+.analysis-wide-button {
+  width: 100%;
+
+  margin-top: 16px;
+}
+
+@media (max-width: 680px) {
+  .formula-information {
+    grid-template-columns: 1fr;
+  }
+
+  .analysis-information {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+  .spectrum-chart {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 250px;
+}
+}
+/* v2.2.0 기준 세션/분류 UI */
+.reference-card{border:1px solid rgba(15,23,42,.08)}
+.reference-status{display:flex;flex-direction:column;gap:5px;padding:14px 16px;margin:12px 0;border-radius:14px;background:#f8fafc}
+.reference-status strong{font-size:1.05rem}.reference-status span,.reference-status small{color:#475569}
+.reference-card .primary-button,.reference-card .secondary-button{width:100%;margin-top:10px}
+.classification-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+.sample-label{font-size:.78rem;color:#64748b}.prediction-material{font-size:2.1rem;line-height:1;background:#eef2ff;padding:10px 14px;border-radius:14px}
+.similarity-ranking{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.rank-row{display:grid;grid-template-columns:28px 42px 1fr 70px;align-items:center;gap:8px;padding:7px 9px;border-radius:10px;background:#f8fafc}
+.rank-row.winner{background:#eefbf3;font-weight:700}.rank-badge{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#e2e8f0;font-size:.78rem}
+.rank-row.winner .rank-badge{background:#dcfce7}.rank-track{height:9px;background:#e2e8f0;border-radius:999px;overflow:hidden}.rank-track span{display:block;height:100%;background:currentColor;border-radius:999px;opacity:.65}.rank-row small{text-align:right;color:#64748b;font-variant-numeric:tabular-nums;font-size:.72rem}
+@media(max-width:520px){.rank-row{grid-template-columns:26px 38px 1fr 58px;gap:6px}.rank-row small{font-size:.66rem}.prediction-material{font-size:1.7rem}}
+
+/* ROI v2.2.2: 직접 이동 안정화 + 미세 이동 버튼 */
+.roi-canvas:focus {
+  outline: 3px solid rgba(250, 204, 21, 0.35);
+  outline-offset: 3px;
+}
+
+.roi-nudge-panel {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.roi-nudge-panel > span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.roi-nudge-panel small {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.roi-nudge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 42px);
+  gap: 6px;
+}
+
+.roi-nudge-grid button {
+  width: 42px;
+  height: 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: #fff;
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.roi-nudge-grid button:active {
+  transform: translateY(1px);
+  background: #f1f5f9;
+}
+
+/* v2.3.1: iPhone 180° 장착 모드 촬영 버튼 안정화 */
+html.spectrometer-180 .measurement-screen {
+  position: relative;
+  padding-top: 92px;
+}
+
+html.spectrometer-180 .in-app-shutter {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  min-height: 72px !important;
+  margin: 0 !important;
+  z-index: 10020 !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.28);
+}
+
+/* V3 */
+.status-message.warning{color:#92400e;background:#fffbeb;border-color:#fcd34d}
+.v3-align-toggle{display:flex;align-items:center;gap:8px;margin:10px 0;font-size:14px;font-weight:700;color:#334155}
+.v3-align-toggle input{width:20px;height:20px}
+.prediction-material.hold{color:#b45309}
